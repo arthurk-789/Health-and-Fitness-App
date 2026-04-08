@@ -1,6 +1,10 @@
 
 function MacroCalculator() {
-    return <h1>Macro Calculator</h1>;
+    return (
+        <div className='flex items-center justify-center h-screen bg-gray-900'>
+            <h1 className='text-4xl font-bold text-white'>Macro Calculator</h1>
+        </div>
+    );
 }
 
 export default MacroCalculator;
