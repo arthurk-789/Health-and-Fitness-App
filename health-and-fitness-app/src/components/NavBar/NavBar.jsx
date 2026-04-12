@@ -31,7 +31,7 @@ function Navbar() {
             `${baseLink} ${isActive ? activeLink : inactiveLink}`
           }
         >
-          Nutrition
+          Nutrition Lookup
         </NavLink>
 
         <NavLink
