@@ -6,15 +6,12 @@ function NutritionLookup() {
 
   function handleSearch(e) {
     e.preventDefault();
-    fetchData();
+    // todo: call function to fetch api 
   }
 
-  async function fetchData() {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
-    let data = await response.json();
-    setResults(data);
-
-  }
+  function isQueryValid() {
+    return query.trim() !== '';
+  };
 
   return (
     <div className="p-6 max-w-4xl mx-auto text-white">
@@ -34,22 +31,25 @@ function NutritionLookup() {
 
         <button
           type='submit'
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+          disabled={isQueryValid()}
+          className={`px-4 py-2 rounded-md transition ${isQueryValid()
+              ? 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+            }`}
         >
           Search
         </button>
       </form>
 
-      <div className="border border-gray-700 rounded-md p-6 min-h-[200px] flex flex-col items-center justify-center bg-gray-800">
+      <div className="border border-gray-700 rounded-md p-6 min-h-50 flex flex-col items-center justify-center bg-gray-800">
         <p className="text-gray-400">
           Search for a food to see nutrition information
         </p>
 
         <p className='text-gray-400'>
-        {results.title}
-      </p>
+        </p>
       </div>
-      
+
     </div>
   );
 }

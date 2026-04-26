@@ -28,6 +28,15 @@ function MacroCalculator() {
         }));
     };
 
+    const isFormValid = () => {
+        return (
+            userData.age &&
+            userData.weight &&
+            userData.heightFeet &&
+            userData.heightInches !== ''
+        );
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -200,7 +209,11 @@ function MacroCalculator() {
 
                         <button
                             type='submit'
-                            className='w-full px-6 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition-colors'
+                            disabled={!isFormValid()}
+                            className={`w-full px-6 py-2 font-bold rounded transition-colors ${isFormValid()
+                                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                    : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                                }`}
                         >
                             Calculate
                         </button>
