@@ -4,7 +4,8 @@ function MacroCalculator() {
     const [userData, setUserData] = useState({
         age: '',
         weight: '',
-        height: '',
+        heightFeet: '',
+        heightInches: '',
         gender: 'male',
         activityLevel: 'moderate',
         goal: 'maintain'
@@ -29,8 +30,49 @@ function MacroCalculator() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // To do: implement calculation logic
-        console.log('Form submitted with:', userData);
+
+        const age = Number(userData.age);
+        const weightLbs = Number(userData.weight);
+        const heightFeet = Number(userData.heightFeet);
+        const heightInches = Number(userData.heightInches);
+
+        const totalHeightInches = heightFeet * 12 + heightInches;
+
+        const weightKg = weightLbs * 0.453592;
+        const heightCm = totalHeightInches * 2.54;
+
+        let bmr;
+
+        if (userData.gender === 'male') {
+            bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + 5;
+        } else {
+            bmr = 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
+        }
+
+        const activityMultipliers = {
+            sedentary: 1.2,
+            moderate: 1.55,
+            active: 1.725
+        };
+
+        let calories = bmr * activityMultipliers[userData.activityLevel];
+
+        if (userData.goal === 'cut') {
+            calories -= 500;
+        } else if (userData.goal === 'bulk') {
+            calories += 300;
+        }
+
+        const protein = weightLbs * 0.8;
+        const fat = (calories * 0.25) / 9;
+        const carbs = (calories - protein * 4 - fat * 9) / 4;
+
+        setResults({
+            calories: Math.round(calories),
+            protein: Math.round(protein),
+            carbs: Math.round(carbs),
+            fat: Math.round(fat)
+        });
     };
 
     return (
@@ -126,8 +168,8 @@ function MacroCalculator() {
                                     type='button'
                                     onClick={() => handleGoalSelect('cut')}
                                     className={`flex-1 px-4 py-2 rounded font-semibold transition-all ${userData.goal === 'cut'
-                                            ? 'bg-red-600 text-white border-2 border-red-500'
-                                            : 'bg-gray-700 text-gray-300 border-2 border-gray-600 hover:border-red-500'
+                                        ? 'bg-red-600 text-white border-2 border-red-500'
+                                        : 'bg-gray-700 text-gray-300 border-2 border-gray-600 hover:border-red-500'
                                         }`}
                                 >
                                     Cut
@@ -136,8 +178,8 @@ function MacroCalculator() {
                                     type='button'
                                     onClick={() => handleGoalSelect('maintain')}
                                     className={`flex-1 px-4 py-2 rounded font-semibold transition-all ${userData.goal === 'maintain'
-                                            ? 'bg-blue-600 text-white border-2 border-blue-500'
-                                            : 'bg-gray-700 text-gray-300 border-2 border-gray-600 hover:border-blue-500'
+                                        ? 'bg-blue-600 text-white border-2 border-blue-500'
+                                        : 'bg-gray-700 text-gray-300 border-2 border-gray-600 hover:border-blue-500'
                                         }`}
                                 >
                                     Maintain
@@ -146,8 +188,8 @@ function MacroCalculator() {
                                     type='button'
                                     onClick={() => handleGoalSelect('bulk')}
                                     className={`flex-1 px-4 py-2 rounded font-semibold transition-all ${userData.goal === 'bulk'
-                                            ? 'bg-green-600 text-white border-2 border-green-500'
-                                            : 'bg-gray-700 text-gray-300 border-2 border-gray-600 hover:border-green-500'
+                                        ? 'bg-green-600 text-white border-2 border-green-500'
+                                        : 'bg-gray-700 text-gray-300 border-2 border-gray-600 hover:border-green-500'
                                         }`}
                                 >
                                     Bulk

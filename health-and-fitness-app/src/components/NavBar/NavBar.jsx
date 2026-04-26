@@ -8,7 +8,7 @@ function Navbar() {
   const inactiveLink = "text-white hover:text-blue-400";
 
   return (
-    <nav className="flex items-center justify-between px-6 py-4 bg-gray-900 shadow-md">
+    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-gray-900 shadow-md border-b border-gray-400">
 
       <div className="text-lg font-bold tracking-wide text-white">
         FitnessHealth
