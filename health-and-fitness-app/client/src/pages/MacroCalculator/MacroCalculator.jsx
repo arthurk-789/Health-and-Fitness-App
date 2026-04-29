@@ -113,7 +113,7 @@ function MacroCalculator() {
                                     name='weight'
                                     value={userData.weight}
                                     onChange={handleInputChange}
-                                    placeholder='e.g., 75'
+                                    placeholder='e.g., 165'
                                     className='w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500'
                                 />
                             </div>
