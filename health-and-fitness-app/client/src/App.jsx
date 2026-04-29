@@ -6,7 +6,7 @@ import MacroCalculator from './pages/MacroCalculator/MacroCalculator';
 
 function App() {
   return (
-    <div className='bg-gray-900 min-h-screen text-white'>
+    <div className='app-shell'>
       <NavBar />
 
       <Routes>

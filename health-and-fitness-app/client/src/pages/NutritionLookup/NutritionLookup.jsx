@@ -17,46 +17,43 @@ function NutritionLookup() {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto text-white">
+    <div className="page-shell">
 
-      <h1 className="text-2xl font-bold mb-6">
+      <h1 className="page-title">
         Nutrition Lookup
       </h1>
 
-      <form onSubmit={handleSearch} className="flex gap-2 mb-6">
+      <form onSubmit={handleSearch} className="form-row">
         <input
           type="text"
           placeholder="Search for a food..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="flex-1 px-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="text-input"
         />
 
         <button
           type='submit'
           disabled={!isQueryValid()}
-          className={`px-4 py-2 rounded-md transition ${isQueryValid()
-            ? 'bg-blue-600 text-white hover:bg-blue-700'
-            : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-            }`}
+          className={isQueryValid() ? 'button-primary' : 'button-disabled'}
         >
           Search
         </button>
       </form>
 
-      <div className="border border-gray-700 rounded-md p-6 min-h-50 flex flex-col items-center justify-center bg-gray-800">
+      <div className="results-panel">
         {results.length > 0 ? (
           results.map((food) => (
-            <div key={food.id} className='bg-gray-700 rounded p-4 mb-3 w-full'>
-              <h2 className='text-white font-bold'>{food.name}</h2>
-              <p className='text-gray-300'>Calories: {food.calories}</p>
-              <p className='text-gray-300'>Protein: {food.protein}g</p>
-              <p className='text-gray-300'>Carbs: {food.carbs}g</p>
-              <p className='text-gray-300'>Fat: {food.fat}g</p>
+            <div key={food.id} className='result-card'>
+              <h2 className='result-name'>{food.name}</h2>
+              <p className='result-text'>Calories: {food.calories}</p>
+              <p className='result-text'>Protein: {food.protein}g</p>
+              <p className='result-text'>Carbs: {food.carbs}g</p>
+              <p className='result-text'>Fat: {food.fat}g</p>
             </div>
           ))
         ) : (
-          <p className="text-gray-400">
+          <p className="info-text">
             Search for a food to see nutrition information
           </p>
         )}

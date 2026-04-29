@@ -1,21 +1,19 @@
 import { NavLink } from "react-router-dom";
 
 function Navbar() {
-  const baseLink = "transition-colors";
+  const baseLink = "nav-link";
 
-  const activeLink = "text-blue-400 font-semibold";
-    
-  const inactiveLink = "text-white hover:text-blue-400";
+  const activeLink = "nav-link--active";
+  const inactiveLink = "nav-link--inactive";
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-gray-900 shadow-md border-b border-gray-400">
+    <nav className="navbar-shell">
 
-      <div className="text-lg font-bold tracking-wide text-white">
+      <div className="nav-title">
         FitnessHealth
       </div>
 
-      <div className="flex gap-6 text-sm">
-        
+      <div className="nav-links">
         <NavLink
           to="/"
           className={({ isActive }) =>
