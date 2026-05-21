@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import NavBar from './components/NavBar/NavBar';
+import NavBar from './components/NavBar';
 import NutritionLookup from './pages/NutritionLookup/NutritionLookup';
 import MacroCalculator from './pages/MacroCalculator/MacroCalculator';
 
