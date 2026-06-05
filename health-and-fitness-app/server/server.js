@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
+
+require('dotenv').config();
 
 const app = express();
 const PORT = 5000;
@@ -7,32 +10,34 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/nutrition/search', (req, res) => {
-    const { query } = req.query;
 
-    const mockFoods = [
+async function fetchNutrition(food, quantity) {
+    const response = await axios.get(
+        `https://api.api-ninjas.com/v1/nutritionitem?query=${food}&quantity=${quantity}`,
         {
-            id: 1,
-            name: 'chicken',
-            calories: 165,
-            protein: 31,
-            carbs: 0,
-            fat: 3.6
-        },
-        {
-            id: 2,
-            name: 'rice',
-            calories: 130,
-            carbs: 28,
-            fat: 3.6
+            headers: {
+                'X-Api-Key': process.env.API_KEY
+            }
         }
-    ]
+    );
 
-    const filteredFoods = mockFoods.filter((food) => {
-        return food.name.toLowerCase().includes(query.toLowerCase());
-    });
+    return response.data;
+}
 
-    res.json(filteredFoods);
+app.get('/api/nutrition/search', async (req, res) => {
+    try {
+        const {food, quantity} = req.query;
+
+        const nutritionData = await fetchNutrition(food, quantity);
+
+        res.json(nutritionData);
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            error: 'API Call Failed.'
+        });
+    }
 });
 
 app.listen(PORT, () => {
