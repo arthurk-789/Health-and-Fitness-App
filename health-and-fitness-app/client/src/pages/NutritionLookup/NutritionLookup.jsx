@@ -1,62 +1,115 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function NutritionLookup() {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [food, setFood] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [unit, setUnit] = useState('g');
+  const [results, setResults] = useState(null);
 
   async function handleSearch(e) {
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:5000/api/nutrition/search?query=${query}`);
+    const response = await fetch(`http://localhost:5000/api/nutrition/search?food=${food}&quantity=${quantity}%20${unit}`);
+
     const data = await response.json();
+
+    console.log(data);
+
     setResults(data);
   }
 
-  function isQueryValid() {
-    return query.trim() !== '';
-  };
+  function isFormValid() {
+    return (
+      food.trim() !== '' &&
+      quantity.trim() !== ''
+    );
+  }
 
   return (
-    <div className="page-shell">
+    <div className='page-shell'>
 
-      <h1 className="page-title">
+      <h1 className='page-title'>
         Nutrition Lookup
       </h1>
 
-      <form onSubmit={handleSearch} className="form-row">
+      <form onSubmit={handleSearch} className='form-row'>
+
         <input
-          type="text"
-          placeholder="Search for a food..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="text-input"
+          type='text'
+          placeholder='Food Name'
+          value={food}
+          onChange={(e) => setFood(e.target.value)}
+          className='text-input'
         />
+
+        <input
+          type='number'
+          placeholder='Quantity'
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          className='text-input'
+        />
+
+        <select
+          value={unit}
+          onChange={(e) => setUnit(e.target.value)}
+          className='text-input'
+        >
+          <option value='g'>Grams (g)</option>
+          <option value='oz'>Ounces (oz)</option>
+          <option value='lbs'>Pounds (lbs)</option>
+        </select>
 
         <button
           type='submit'
-          disabled={!isQueryValid()}
-          className={isQueryValid() ? 'button-primary' : 'button-disabled'}
+          disabled={!isFormValid()}
+          className={isFormValid() ? 'button-primary' : 'button-disabled'}
         >
           Search
         </button>
+
       </form>
 
-      <div className="results-panel">
-        {results.length > 0 ? (
-          results.map((food) => (
-            <div key={food.id} className='result-card'>
-              <h2 className='result-name'>{food.name}</h2>
-              <p className='result-text'>Calories: {food.calories}</p>
-              <p className='result-text'>Protein: {food.protein}g</p>
-              <p className='result-text'>Carbs: {food.carbs}g</p>
-              <p className='result-text'>Fat: {food.fat}g</p>
-            </div>
-          ))
-        ) : (
-          <p className="info-text">
-            Search for a food to see nutrition information
+      <div className='results-panel'>
+
+        {results === null ? (
+          <p className='info-text'>
+            Enter a food and quantity to view nutrition information
           </p>
+        ) : (
+          <div className='result-card'>
+
+            <h2 className='result-name'>
+              {results.name}
+            </h2>
+
+            <p className='result-text'>
+              Serving Size: {results.serving_size_g} g
+            </p>
+
+            <p className='result-text'>
+              Fat: {results.fat_total_g} g
+            </p>
+
+            <p className='result-text'>
+              Carbohydrates: {results.carbohydrates_total_g} g
+            </p>
+
+            <p className='result-text'>
+              Sodium: {results.sodium_mg} mg
+            </p>
+
+            <p className='result-text'>
+              Potassium: {results.potassium_mg} mg
+            </p>
+
+            <p className='result-text'>
+              Cholesterol: {results.cholesterol_mg} mg
+            </p>
+
+          </div>
         )}
+
       </div>
 
     </div>
