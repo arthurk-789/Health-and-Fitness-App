@@ -77,35 +77,51 @@ function NutritionLookup() {
             Enter a food and quantity to view nutrition information
           </p>
         ) : (
-          <div className='result-card'>
+          <div className='result-card result-dashboard-card'>
 
-            <h2 className='result-name'>
-              {results.name}
-            </h2>
+            <div className='food-image-placeholder'>
+              Food Image Coming Soon
+            </div>
 
-            <p className='result-text'>
-              Serving Size: {results.serving_size_g} g
-            </p>
+            <div className='result-header'>
+              <h2 className='result-name'>
+                {results.name}
+              </h2>
 
-            <p className='result-text'>
-              Fat: {results.fat_total_g} g
-            </p>
+              <p className='result-serving-size'>
+                Serving Size: {results.serving_size_g} g
+              </p>
+            </div>
 
-            <p className='result-text'>
-              Carbohydrates: {results.carbohydrates_total_g} g
-            </p>
+            <div className='result-stats-grid'>
+              <div className='stat-tile'>
+                <span className='stat-label'>Fat</span>
+                <span className='stat-value'>{results.fat_total_g} g</span>
+              </div>
 
-            <p className='result-text'>
-              Sodium: {results.sodium_mg} mg
-            </p>
+              <div className='stat-tile'>
+                <span className='stat-label'>Carbohydrates</span>
+                <span className='stat-value'>{results.carbohydrates_total_g} g</span>
+              </div>
 
-            <p className='result-text'>
-              Potassium: {results.potassium_mg} mg
-            </p>
+              <div className='stat-tile'>
+                <span className='stat-label'>Sodium</span>
+                <span className='stat-value'>{results.sodium_mg} mg</span>
+              </div>
 
-            <p className='result-text'>
-              Cholesterol: {results.cholesterol_mg} mg
-            </p>
+              <div className='stat-tile'>
+                <span className='stat-label'>Potassium</span>
+                <span className='stat-value'>{results.potassium_mg} mg</span>
+              </div>
+            </div>
+
+            <div className='additional-nutrition'>
+              <p className='additional-nutrition-title'>Additional Nutrition</p>
+              <div className='stat-tile additional-nutrition-card'>
+                <span className='stat-label'>Cholesterol</span>
+                <span className='stat-value'>{results.cholesterol_mg} mg</span>
+              </div>
+            </div>
 
           </div>
         )}
