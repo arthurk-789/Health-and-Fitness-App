@@ -5,23 +5,73 @@ function NutritionLookup() {
   const [quantity, setQuantity] = useState('');
   const [unit, setUnit] = useState('g');
   const [results, setResults] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
   async function handleSearch(e) {
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:5000/api/nutrition/search?food=${food}&quantity=${quantity}%20${unit}`);
+    setLoading(true);
+    setError(false);
+    setHasSearched(true);
 
-    const data = await response.json();
+    try {
+      const response = await fetch(`http://localhost:5000/api/nutrition/search?food=${food}&quantity=${quantity}%20${unit}`);
 
-    console.log(data);
+      const data = await response.json();
 
-    setResults(data);
+      console.log(data);
+
+      setResults(data);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   function isFormValid() {
     return (
       food.trim() !== '' &&
       quantity.trim() !== ''
+    );
+  }
+
+  function hasNoResults() {
+    return (
+      hasSearched &&
+      (
+        results === null ||
+        results === undefined ||
+        (
+          typeof results === 'object' &&
+          Object.keys(results).length === 0
+        )
+      )
+    );
+  }
+
+  function hasValidNutritionData() {
+    return (
+      results !== null &&
+      results !== undefined &&
+      results.name !== undefined &&
+      results.serving_size_g !== undefined &&
+      results.fat_total_g !== undefined &&
+      results.carbohydrates_total_g !== undefined &&
+      results.sodium_mg !== undefined &&
+      results.potassium_mg !== undefined &&
+      results.cholesterol_mg !== undefined
+    );
+  }
+
+  function hasInvalidFoodResult() {
+    return (
+      hasSearched &&
+      results !== null &&
+      results !== undefined &&
+      !hasValidNutritionData()
     );
   }
 
@@ -72,11 +122,23 @@ function NutritionLookup() {
 
       <div className='results-panel'>
 
-        {results === null ? (
+        {loading ? (
           <p className='info-text'>
-            Enter a food and quantity to view nutrition information
+            Searching...
           </p>
-        ) : (
+        ) : error ? (
+          <p className='info-text'>
+            Failed to fetch nutrition data.
+          </p>
+        ) : hasNoResults() ? (
+          <p className='info-text'>
+            No nutrition data found.
+          </p>
+        ) : hasInvalidFoodResult() ? (
+          <p className='info-text'>
+            Invalid food name.
+          </p>
+        ) : results !== null ? (
           <div className='result-card result-dashboard-card'>
 
             <div className='food-image-placeholder'>
@@ -124,6 +186,10 @@ function NutritionLookup() {
             </div>
 
           </div>
+        ) : (
+          <p className='info-text'>
+            Enter a food and quantity to view nutrition information
+          </p>
         )}
 
       </div>
