@@ -106,6 +106,18 @@
     @apply text-gray-400;
   }
 
+  .meal-totals-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full;
+  }
+
+  .meal-total-card {
+    @apply bg-gray-700 rounded p-4 text-center;
+  }
+
+  .remove-button {
+    @apply mt-4 px-3 py-2 rounded bg-red-600 text-white transition hover:bg-red-700;
+  }
+
   .card-panel {
     @apply bg-gray-800 rounded-lg border border-gray-700 p-8 mb-8;
   }

@@ -38,7 +38,7 @@ function Navbar() {
             `${baseLink} ${isActive ? activeLink : inactiveLink}`
           }
         >
-          Macros
+          Macro Calculator
         </NavLink>
 
         <NavLink
