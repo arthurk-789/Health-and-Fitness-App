@@ -43,6 +43,18 @@ function Home() {
                         buttonText='Open Macro Calculator'
                     />
 
+                    <FeatureCard
+                        title='Meal Builder'
+                        description='Create meals by combining foods and tracking nutrition totals in one place.'
+                        features={[
+                            'Add foods to a meal',
+                            'Review nutrition totals',
+                            'Plan meals around your goals'
+                        ]}
+                        link='/meal-builder'
+                        buttonText='Open Meal Builder'
+                    />
+
                 </div>
 
             </div>

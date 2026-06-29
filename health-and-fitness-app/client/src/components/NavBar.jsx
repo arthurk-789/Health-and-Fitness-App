@@ -41,6 +41,15 @@ function Navbar() {
           Macros
         </NavLink>
 
+        <NavLink
+          to="/meal-builder"
+          className={({ isActive }) =>
+            `${baseLink} ${isActive ? activeLink : inactiveLink}`
+          }
+        >
+          Meal Builder
+        </NavLink>
+
       </div>
     </nav>
   );
