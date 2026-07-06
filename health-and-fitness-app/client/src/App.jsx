@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import NutritionLookup from './pages/NutritionLookup/NutritionLookup';
 import MacroCalculator from './pages/MacroCalculator/MacroCalculator';
 import MealBuilder from './pages/MealBuilder/MealBuilder';
+import Account from './pages/Account/Account';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -30,6 +31,7 @@ function App() {
         <Route path='/nutrition' element={<NutritionLookup />} />
         <Route path='/macros' element={<MacroCalculator />} />
         <Route path='/meal-builder' element={<MealBuilder />} />
+        <Route path='/account' element={<Account />} />
       </Routes>
     </div>
 

@@ -5,14 +5,17 @@ function Navbar({ theme, onToggleTheme }) {
 
   const activeLink = 'nav-link--active';
   const inactiveLink = 'nav-link--inactive';
+  const profileBaseLink = 'profile-link';
+  const activeProfileLink = 'profile-link--active';
+  const inactiveProfileLink = 'profile-link--inactive';
   const nextTheme = theme === 'dark' ? 'light' : 'dark';
 
   return (
     <nav className='navbar-shell'>
 
-      <div className='nav-title'>
+      <NavLink to='/' className='nav-title' aria-label='FitnessHealth home'>
         FitnessHealth
-      </div>
+      </NavLink>
 
       <div className='nav-actions'>
         <div className='nav-links'>
@@ -54,19 +57,43 @@ function Navbar({ theme, onToggleTheme }) {
 
         </div>
 
-        <button
-          type='button'
-          className='theme-toggle'
-          onClick={onToggleTheme}
-          aria-label={`Switch to ${nextTheme} mode`}
-        >
-          <span className='theme-toggle-track'>
-            <span className='theme-toggle-thumb' />
-          </span>
-          <span className='theme-toggle-label'>
-            {theme === 'dark' ? 'Dark' : 'Light'}
-          </span>
-        </button>
+        <div className='nav-controls'>
+          <button
+            type='button'
+            className='theme-toggle'
+            onClick={onToggleTheme}
+            aria-label={`Switch to ${nextTheme} mode`}
+          >
+            <span className='theme-toggle-track'>
+              <span className='theme-toggle-thumb' />
+            </span>
+            <span className='theme-toggle-label'>
+              {theme === 'dark' ? 'Dark' : 'Light'}
+            </span>
+          </button>
+
+          <NavLink
+            to='/account'
+            className={({ isActive }) =>
+              `${profileBaseLink} ${isActive ? activeProfileLink : inactiveProfileLink}`
+            }
+            aria-label='Account'
+          >
+            <svg
+              className='profile-link-icon'
+              viewBox='0 0 24 24'
+              aria-hidden='true'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            >
+              <path d='M20 21a8 8 0 0 0-16 0' />
+              <circle cx='12' cy='7' r='4' />
+            </svg>
+          </NavLink>
+        </div>
       </div>
     </nav>
   );
