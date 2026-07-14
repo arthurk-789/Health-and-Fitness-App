@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import EmptyState from '../../components/EmptyState';
+import ErrorMessage from '../../components/ErrorMessage';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 function NutritionLookup() {
   const [food, setFood] = useState('');
@@ -123,21 +126,16 @@ function NutritionLookup() {
       <div className='results-panel'>
 
         {loading ? (
-          <p className='info-text'>
-            Searching...
-          </p>
+          <LoadingSpinner message='Searching nutrition data...' />
         ) : error ? (
-          <p className='info-text'>
-            Failed to fetch nutrition data.
-          </p>
+          <ErrorMessage message='Failed to fetch nutrition data.' />
         ) : hasNoResults() ? (
-          <p className='info-text'>
-            No nutrition data found.
-          </p>
+          <EmptyState
+            title='No nutrition data found'
+            message='Try a different food name or adjust the serving size.'
+          />
         ) : hasInvalidFoodResult() ? (
-          <p className='info-text'>
-            Invalid food name.
-          </p>
+          <ErrorMessage message='Invalid food name.' />
         ) : results !== null ? (
           <div className='result-card result-dashboard-card'>
 
@@ -187,9 +185,10 @@ function NutritionLookup() {
 
           </div>
         ) : (
-          <p className='info-text'>
-            Enter a food and quantity to view nutrition information
-          </p>
+          <EmptyState
+            title='Search for a food'
+            message='Enter a food and quantity to view nutrition information.'
+          />
         )}
 
       </div>

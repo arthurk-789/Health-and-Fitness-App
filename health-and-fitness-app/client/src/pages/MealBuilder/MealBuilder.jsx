@@ -1,5 +1,9 @@
 
 import { useState } from 'react';
+import EmptyState from '../../components/EmptyState';
+import ErrorMessage from '../../components/ErrorMessage';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import SuccessMessage from '../../components/SuccessMessage';
 
 function MealBuilder() {
   const [food, setFood] = useState('');
@@ -8,6 +12,7 @@ function MealBuilder() {
   const [mealItems, setMealItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   function isFormValid() {
     return food.trim() !== '' && quantity.trim() !== '';
@@ -22,6 +27,7 @@ function MealBuilder() {
 
     setLoading(true);
     setError('');
+    setSuccess('');
 
     try {
       const response = await fetch(
@@ -37,6 +43,7 @@ function MealBuilder() {
       setMealItems([...mealItems, data]);
       setFood('');
       setQuantity('');
+      setSuccess('Food added to your meal.');
     } catch {
       setError('Failed to add food. Please try again.');
     } finally {
@@ -111,10 +118,16 @@ function MealBuilder() {
         </button>
       </form>
 
+      {loading && (
+        <LoadingSpinner message='Adding food to meal...' />
+      )}
+
       {error !== '' && (
-        <p className='info-text'>
-          {error}
-        </p>
+        <ErrorMessage message={error} />
+      )}
+
+      {success !== '' && (
+        <SuccessMessage message={success} />
       )}
 
       <h2 className='section-label'>
@@ -151,9 +164,10 @@ function MealBuilder() {
 
       <div className='results-panel'>
         {mealItems.length === 0 ? (
-          <p className='info-text'>
-            Add foods to start building your meal
-          </p>
+          <EmptyState
+            title='Your meal is empty'
+            message='Add foods above to start building your meal.'
+          />
         ) : (
           mealItems.map((item, index) => (
             <div key={item.name + '-' + index} className='result-card'>
