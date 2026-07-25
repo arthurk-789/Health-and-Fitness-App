@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 const initialLoginForm = {
-  email: '',
+  username: '',
   password: ''
 };
 
 const initialSignupForm = {
-  email: '',
+  username: '',
   password: '',
   confirmPassword: ''
 };
@@ -59,7 +59,7 @@ function Account() {
           <p className='account-subtitle'>
             {isLogin
               ? 'Log in to continue your health and fitness dashboard.'
-              : 'Set up your dashboard profile with an email and password.'
+              : 'Set up your dashboard profile with a username and password.'
             }
           </p>
         </div>
@@ -89,17 +89,17 @@ function Account() {
         {isLogin ? (
           <form className='account-form' onSubmit={handleLoginSubmit}>
             <div className='account-field'>
-              <label htmlFor='login-email' className='account-label'>
-                Email
+              <label htmlFor='login-username' className='account-label'>
+                Username
               </label>
               <input
-                id='login-email'
-                name='email'
-                type='email'
-                value={loginForm.email}
+                id='login-username'
+                name='username'
+                type='text'
+                value={loginForm.username}
                 onChange={handleLoginChange}
-                placeholder='you@example.com'
-                autoComplete='email'
+                placeholder='Enter your username'
+                autoComplete='username'
                 className='account-input'
                 required
               />
@@ -129,17 +129,17 @@ function Account() {
         ) : (
           <form className='account-form' onSubmit={handleSignupSubmit}>
             <div className='account-field'>
-              <label htmlFor='signup-email' className='account-label'>
-                Email
+              <label htmlFor='signup-username' className='account-label'>
+                Username
               </label>
               <input
-                id='signup-email'
-                name='email'
-                type='email'
-                value={signupForm.email}
+                id='signup-username'
+                name='username'
+                type='text'
+                value={signupForm.username}
                 onChange={handleSignupChange}
-                placeholder='you@example.com'
-                autoComplete='email'
+                placeholder='Choose a username'
+                autoComplete='username'
                 className='account-input'
                 required
               />

@@ -2,6 +2,11 @@ import { useState } from 'react';
 import EmptyState from '../../components/EmptyState';
 import ErrorMessage from '../../components/ErrorMessage';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import SuccessMessage from '../../components/SuccessMessage';
+import {
+  createNutritionCacheKey,
+  nutritionSearchCache,
+} from '../../utils/nutritionCache';
 
 function NutritionLookup() {
   const [food, setFood] = useState('');
@@ -11,13 +16,25 @@ function NutritionLookup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [loadedFromCache, setLoadedFromCache] = useState(false);
 
   async function handleSearch(e) {
     e.preventDefault();
 
-    setLoading(true);
+    const cacheKey = createNutritionCacheKey(food, quantity, unit);
+
     setError(false);
     setHasSearched(true);
+    setLoadedFromCache(false);
+
+    if (nutritionSearchCache.has(cacheKey)) {
+      setResults(nutritionSearchCache.get(cacheKey));
+      setLoading(false);
+      setLoadedFromCache(true);
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const response = await fetch(`http://localhost:5000/api/nutrition/search?food=${food}&quantity=${quantity}%20${unit}`);
@@ -27,6 +44,7 @@ function NutritionLookup() {
       console.log(data);
 
       setResults(data);
+      nutritionSearchCache.set(cacheKey, data);
     } catch {
       setError(true);
     } finally {
@@ -137,53 +155,59 @@ function NutritionLookup() {
         ) : hasInvalidFoodResult() ? (
           <ErrorMessage message='Invalid food name.' />
         ) : results !== null ? (
-          <div className='result-card result-dashboard-card'>
+          <>
+            {loadedFromCache && (
+              <SuccessMessage message='Loaded from recent search.' />
+            )}
 
-            <div className='food-image-placeholder'>
-              Food Image Coming Soon
+            <div className='result-card result-dashboard-card'>
+
+              <div className='food-image-placeholder'>
+                Food Image Coming Soon
+              </div>
+
+              <div className='result-header'>
+                <h2 className='result-name'>
+                  {results.name}
+                </h2>
+
+                <p className='result-serving-size'>
+                  Serving Size: {results.serving_size_g} g
+                </p>
+              </div>
+
+              <div className='result-stats-grid'>
+                <div className='stat-tile'>
+                  <span className='stat-label'>Fat</span>
+                  <span className='stat-value'>{results.fat_total_g} g</span>
+                </div>
+
+                <div className='stat-tile'>
+                  <span className='stat-label'>Carbohydrates</span>
+                  <span className='stat-value'>{results.carbohydrates_total_g} g</span>
+                </div>
+
+                <div className='stat-tile'>
+                  <span className='stat-label'>Sodium</span>
+                  <span className='stat-value'>{results.sodium_mg} mg</span>
+                </div>
+
+                <div className='stat-tile'>
+                  <span className='stat-label'>Potassium</span>
+                  <span className='stat-value'>{results.potassium_mg} mg</span>
+                </div>
+              </div>
+
+              <div className='additional-nutrition'>
+                <p className='additional-nutrition-title'>Additional Nutrition</p>
+                <div className='stat-tile additional-nutrition-card'>
+                  <span className='stat-label'>Cholesterol</span>
+                  <span className='stat-value'>{results.cholesterol_mg} mg</span>
+                </div>
+              </div>
+
             </div>
-
-            <div className='result-header'>
-              <h2 className='result-name'>
-                {results.name}
-              </h2>
-
-              <p className='result-serving-size'>
-                Serving Size: {results.serving_size_g} g
-              </p>
-            </div>
-
-            <div className='result-stats-grid'>
-              <div className='stat-tile'>
-                <span className='stat-label'>Fat</span>
-                <span className='stat-value'>{results.fat_total_g} g</span>
-              </div>
-
-              <div className='stat-tile'>
-                <span className='stat-label'>Carbohydrates</span>
-                <span className='stat-value'>{results.carbohydrates_total_g} g</span>
-              </div>
-
-              <div className='stat-tile'>
-                <span className='stat-label'>Sodium</span>
-                <span className='stat-value'>{results.sodium_mg} mg</span>
-              </div>
-
-              <div className='stat-tile'>
-                <span className='stat-label'>Potassium</span>
-                <span className='stat-value'>{results.potassium_mg} mg</span>
-              </div>
-            </div>
-
-            <div className='additional-nutrition'>
-              <p className='additional-nutrition-title'>Additional Nutrition</p>
-              <div className='stat-tile additional-nutrition-card'>
-                <span className='stat-label'>Cholesterol</span>
-                <span className='stat-value'>{results.cholesterol_mg} mg</span>
-              </div>
-            </div>
-
-          </div>
+          </>
         ) : (
           <EmptyState
             title='Search for a food'
