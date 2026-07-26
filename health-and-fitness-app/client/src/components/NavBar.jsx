@@ -55,6 +55,15 @@ function Navbar({ theme, onToggleTheme }) {
             Meal Builder
           </NavLink>
 
+          <NavLink
+            to='/calories-burned'
+            className={({ isActive }) =>
+              `${baseLink} ${isActive ? activeLink : inactiveLink}`
+            }
+          >
+            Calories Burned
+          </NavLink>
+
         </div>
 
         <div className='nav-controls'>

@@ -12,7 +12,7 @@ function Home() {
 
                     <p className='home-subtitle'>
                         Choose a tool to explore nutrition data, calculate macros,
-                        and manage your fitness goals.
+                        estimate calories burned, and manage your fitness goals.
                     </p>
                 </div>
 
@@ -53,6 +53,18 @@ function Home() {
                         ]}
                         link='/meal-builder'
                         buttonText='Open Meal Builder'
+                    />
+
+                    <FeatureCard
+                        title='Calories Burned'
+                        description='Estimate calories burned for an activity using optional weight and duration details.'
+                        features={[
+                            'Search by activity',
+                            'Add optional weight and duration',
+                            'Compare calorie estimates'
+                        ]}
+                        link='/calories-burned'
+                        buttonText='Open Calories Burned'
                     />
 
                 </div>

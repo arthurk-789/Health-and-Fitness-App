@@ -131,6 +131,29 @@
     color: var(--text);
   }
 
+  .calories-page {
+    @apply max-w-5xl py-10;
+  }
+
+  .tool-header {
+    @apply mb-8;
+  }
+
+  .tool-eyebrow,
+  .calories-result-label {
+    @apply text-xs font-bold uppercase tracking-widest;
+    color: var(--brand);
+  }
+
+  .calories-page-title {
+    @apply mb-2 mt-2 text-4xl;
+  }
+
+  .tool-description {
+    @apply max-w-2xl;
+    color: var(--text-soft);
+  }
+
   .form-row {
     @apply flex gap-2 mb-6;
   }
@@ -386,6 +409,77 @@
 
   .card-panel {
     @apply rounded-lg p-8 mb-8;
+  }
+
+  .calories-form {
+    @apply space-y-6;
+  }
+
+  .calories-form-grid {
+    @apply grid grid-cols-1 gap-4 md:grid-cols-2;
+  }
+
+  .calories-activity-field {
+    @apply md:col-span-2;
+  }
+
+  .calories-results {
+    @apply items-stretch;
+  }
+
+  .calories-results-grid {
+    @apply grid w-full grid-cols-1 gap-4 md:grid-cols-2;
+  }
+
+  .calories-result-card {
+    @apply flex flex-col gap-5 rounded-lg p-5;
+    background: var(--surface-muted);
+    border: 1px solid var(--border);
+  }
+
+  .calories-result-card:hover {
+    border-color: var(--brand);
+    transform: translateY(-2px);
+  }
+
+  .calories-result-header {
+    @apply space-y-1;
+  }
+
+  .calories-result-name {
+    @apply text-xl font-bold capitalize;
+    color: var(--text);
+  }
+
+  .calories-total {
+    @apply flex flex-col rounded-lg p-4;
+    background: var(--brand-soft);
+    border: 1px solid var(--border);
+  }
+
+  .calories-total-value {
+    @apply text-4xl font-bold;
+    color: var(--brand);
+  }
+
+  .calories-total-label {
+    @apply text-sm font-medium;
+    color: var(--text-muted);
+  }
+
+  .calories-stat-grid {
+    @apply grid grid-cols-1 gap-3 sm:grid-cols-2;
+  }
+
+  .calories-stat {
+    @apply flex flex-col gap-1 rounded-md p-3;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+  }
+
+  .calories-stat-value {
+    @apply text-lg font-bold;
+    color: var(--text);
   }
 
   .form-spacing {
