@@ -1,32 +1,33 @@
 # Fitness Health App
 
-A modern health and fitness dashboard designed to help users better understand their nutrition and daily intake. This app brings together simple, practical tools into one clean interface, making it easier to plan, explore, and manage health-related data.
+A full-stack health and fitness dashboard with practical tools for nutrition lookup, macro planning, meal building, and calories burned estimates.
 
-## Current Features
+## Tech Stack
 
-- **Nutrition Lookup**  
-  Search and explore food-related information through an intuitive interface
+**Frontend:** React, JavaScript, React Router, Vite, Tailwind CSS  
+**Backend:** Node.js, Express, Axios, CORS, Dotenv  
+**APIs:** API Ninjas Nutrition API, API Ninjas Calories Burned API
 
-- **Macro Planner**  
-  Estimate daily calorie and macronutrient needs based on personal inputs
+## Features
+
+- **Nutrition Lookup**: Search foods by item, quantity, and unit.
+- **Macro Calculator**: Estimate daily calories and macro targets.
+- **Meal Builder**: Add foods, view meal totals, and remove items.
+- **Calories Burned**: Estimate calories burned by activity, weight, and duration.
+- **Search Caching**: Reuses recent nutrition results to avoid duplicate API calls.
+- **UI States**: Reusable loading, error, empty, and success states.
+- **Light/Dark Mode**: Global theme support.
 
 ## Experience
 
-- Clean, dark-themed interface  
-- Simple and focused user experience  
-- Designed to feel like a SaaS, all-in-one health toolkit  
+- Clean, SaaS-style dashboard interface
+- Simple and focused user experience
+- Modular tool-based layout
+- Responsive design with light/dark mode
+- Centralized styling with reusable UI patterns
 
-## Status
+## Architecture
 
-This project is currently in active development, with core features and interface completed. Functionality is being expanded step by step.
-
-## Future Integrations
-
-- Integration with real nutrition data sources  
-- More advanced calculation and planning tools  
-- Personalized user features  
-- Backend development for data storage and user accounts  
-
-## Purpose
-
-This project is being developed as a portfolio piece to demonstrate the ability to design and build scalable, user-focused applications while evolving toward a full-stack solution.
+```txt
+client/   React frontend
+server/   Express backend
