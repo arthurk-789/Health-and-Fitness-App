@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import NavBar from './components/NavBar';
@@ -8,24 +8,23 @@ import MealBuilder from './pages/MealBuilder/MealBuilder';
 import Account from './pages/Account/Account';
 import CaloriesBurned from './pages/CaloriesBurned/CaloriesBurned';
 
+const themes = ['light', 'dark', 'emerald', 'sunset', 'violet'];
+
 function App() {
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem('theme');
 
-    return storedTheme === 'light' ? 'light' : 'dark';
+    return themes.includes(storedTheme) ? storedTheme : 'dark';
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    document.documentElement.dataset.theme = theme;
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  function toggleTheme() {
-    setTheme((currentTheme) => currentTheme === 'dark' ? 'light' : 'dark');
-  }
-
   return (
-    <div className={`app-shell theme-${theme}`}>
-      <NavBar theme={theme} onToggleTheme={toggleTheme} />
+    <div className='app-shell'>
+      <NavBar theme={theme} onThemeChange={setTheme} />
 
       <Routes>
         <Route path='/' element={<Home />} />
