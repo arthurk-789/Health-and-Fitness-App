@@ -54,62 +54,75 @@ function Navbar({ theme, onThemeChange }) {
 
   return (
     <nav className='navbar-shell'>
+      <div className='nav-brand'>
+        <NavLink to='/' className='nav-title' aria-label='FitnessHealth home'>
+          FitnessHealth
+        </NavLink>
 
-      <NavLink to='/' className='nav-title' aria-label='FitnessHealth home'>
-        FitnessHealth
-      </NavLink>
-
-      <div className='nav-actions'>
-        <div className='nav-links'>
-          <NavLink
-            to='/'
-            className={({ isActive }) =>
-              `${baseLink} ${isActive ? activeLink : inactiveLink}`
-            }
+        <NavLink
+          to='/'
+          className={({ isActive }) =>
+            `nav-home-link ${isActive ? 'nav-home-link--active' : ''}`
+          }
+          aria-label='Home'
+        >
+          <svg
+            className='nav-home-icon'
+            viewBox='0 0 24 24'
+            aria-hidden='true'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
           >
-            Home
-          </NavLink>
+            <path d='m3 11 9-8 9 8' />
+            <path d='M5 10v11h14V10' />
+            <path d='M9 21v-7h6v7' />
+          </svg>
+        </NavLink>
+      </div>
 
-          <NavLink
-            to='/nutrition'
-            className={({ isActive }) =>
-              `${baseLink} ${isActive ? activeLink : inactiveLink}`
-            }
-          >
-            Nutrition Lookup
-          </NavLink>
+      <div className='nav-links'>
+        <NavLink
+          to='/nutrition'
+          className={({ isActive }) =>
+            `${baseLink} ${isActive ? activeLink : inactiveLink}`
+          }
+        >
+          Nutrition Lookup
+        </NavLink>
 
-          <NavLink
-            to='/macros'
-            className={({ isActive }) =>
-              `${baseLink} ${isActive ? activeLink : inactiveLink}`
-            }
-          >
-            Macro Calculator
-          </NavLink>
+        <NavLink
+          to='/macros'
+          className={({ isActive }) =>
+            `${baseLink} ${isActive ? activeLink : inactiveLink}`
+          }
+        >
+          Macro Calculator
+        </NavLink>
 
-          <NavLink
-            to='/meal-builder'
-            className={({ isActive }) =>
-              `${baseLink} ${isActive ? activeLink : inactiveLink}`
-            }
-          >
-            Meal Builder
-          </NavLink>
+        <NavLink
+          to='/meal-builder'
+          className={({ isActive }) =>
+            `${baseLink} ${isActive ? activeLink : inactiveLink}`
+          }
+        >
+          Meal Builder
+        </NavLink>
 
-          <NavLink
-            to='/calories-burned'
-            className={({ isActive }) =>
-              `${baseLink} ${isActive ? activeLink : inactiveLink}`
-            }
-          >
-            Calories Burned
-          </NavLink>
+        <NavLink
+          to='/calories-burned'
+          className={({ isActive }) =>
+            `${baseLink} ${isActive ? activeLink : inactiveLink}`
+          }
+        >
+          Calories Burned
+        </NavLink>
+      </div>
 
-        </div>
-
-        <div className='nav-controls'>
-          <div className='theme-menu' ref={themeMenuRef}>
+      <div className='nav-controls'>
+        <div className='theme-menu' ref={themeMenuRef}>
             <button
               type='button'
               className={`theme-button ${isThemeMenuOpen ? 'theme-button--open' : ''}`}
@@ -186,30 +199,29 @@ function Navbar({ theme, onThemeChange }) {
                 })}
               </div>
             )}
-          </div>
-
-          <NavLink
-            to='/account'
-            className={({ isActive }) =>
-              `${profileBaseLink} ${isActive ? activeProfileLink : inactiveProfileLink}`
-            }
-            aria-label='Account'
-          >
-            <svg
-              className='profile-link-icon'
-              viewBox='0 0 24 24'
-              aria-hidden='true'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <path d='M20 21a8 8 0 0 0-16 0' />
-              <circle cx='12' cy='7' r='4' />
-            </svg>
-          </NavLink>
         </div>
+
+        <NavLink
+          to='/account'
+          className={({ isActive }) =>
+            `${profileBaseLink} ${isActive ? activeProfileLink : inactiveProfileLink}`
+          }
+          aria-label='Account'
+        >
+          <svg
+            className='profile-link-icon'
+            viewBox='0 0 24 24'
+            aria-hidden='true'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          >
+            <path d='M20 21a8 8 0 0 0-16 0' />
+            <circle cx='12' cy='7' r='4' />
+          </svg>
+        </NavLink>
       </div>
     </nav>
   );
