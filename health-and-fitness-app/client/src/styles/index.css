@@ -844,6 +844,35 @@
     }
   }
 
+  .settings-link {
+    @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted-text);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  }
+
+  .settings-link:hover,
+  .settings-link--active {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .settings-link:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .settings-link--inactive {
+    color: var(--muted-text);
+  }
+
+  .settings-link-icon {
+    @apply h-5 w-5;
+  }
+
   .profile-link {
     @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full;
     background: var(--surface);
@@ -866,6 +895,20 @@
 
   .profile-link-icon {
     @apply h-5 w-5;
+  }
+
+  .settings-page {
+    @apply min-h-screen px-4 pb-10 pt-16 sm:px-6 sm:pt-20;
+    color: var(--text);
+  }
+
+  .settings-placeholder {
+    @apply mx-auto w-full max-w-5xl;
+  }
+
+  .settings-title {
+    @apply text-3xl font-bold sm:text-4xl;
+    color: var(--text);
   }
 
   .account-page {

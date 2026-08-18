@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import EmptyState from '../../components/EmptyState';
-import ErrorMessage from '../../components/ErrorMessage';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import EmptyState from '../components/EmptyState';
+import ErrorMessage from '../components/ErrorMessage';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 function NutritionLookup() {
   const [food, setFood] = useState('');

@@ -1,9 +1,9 @@
 
 import { useState } from 'react';
-import EmptyState from '../../components/EmptyState';
-import ErrorMessage from '../../components/ErrorMessage';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import SuccessMessage from '../../components/SuccessMessage';
+import EmptyState from '../components/EmptyState';
+import ErrorMessage from '../components/ErrorMessage';
+import LoadingSpinner from '../components/LoadingSpinner';
+import SuccessMessage from '../components/SuccessMessage';
 
 function MealBuilder() {
   const [food, setFood] = useState('');

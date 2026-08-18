@@ -1,12 +1,13 @@
 import { useLayoutEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home/Home';
+import Home from './pages/Home';
 import NavBar from './components/NavBar';
-import NutritionLookup from './pages/NutritionLookup/NutritionLookup';
-import MacroCalculator from './pages/MacroCalculator/MacroCalculator';
-import MealBuilder from './pages/MealBuilder/MealBuilder';
-import Account from './pages/Account/Account';
-import CaloriesBurned from './pages/CaloriesBurned/CaloriesBurned';
+import NutritionLookup from './pages/NutritionLookup';
+import MacroCalculator from './pages/MacroCalculator';
+import MealBuilder from './pages/MealBuilder';
+import Account from './pages/Account';
+import CaloriesBurned from './pages/CaloriesBurned';
+import Settings from './pages/Settings';
 
 const themes = ['light', 'dark', 'emerald', 'sunset', 'violet'];
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/macros' element={<MacroCalculator />} />
         <Route path='/meal-builder' element={<MealBuilder />} />
         <Route path='/calories-burned' element={<CaloriesBurned />} />
+        <Route path='/settings' element={<Settings />} />
         <Route path='/account' element={<Account />} />
       </Routes>
     </div>
