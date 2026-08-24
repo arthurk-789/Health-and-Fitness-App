@@ -1,12 +1,11 @@
-# Fitness Health App
+# NutriPanel
 
 A full-stack health and fitness dashboard with practical tools for nutrition lookup, macro planning, meal building, and calories burned estimates.
 
 ## Tech Stack
 
 **Frontend:** React, JavaScript, React Router, Vite, Tailwind CSS  
-**Backend:** Node.js, Express, Axios, CORS, Dotenv  
-**APIs:** API Ninjas Nutrition API, API Ninjas Calories Burned API
+**Backend:** Node.js, Express, Axios, CORS, Dotenv 
 
 ## Features
 

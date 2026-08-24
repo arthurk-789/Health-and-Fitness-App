@@ -59,7 +59,7 @@ function Navbar({ theme, onThemeChange }) {
     <nav className='navbar-shell'>
       <div className='nav-brand'>
         <NavLink to='/' className='nav-title' aria-label='FitnessHealth home'>
-          FitnessHealth
+          NutriPanel
         </NavLink>
 
         <NavLink
