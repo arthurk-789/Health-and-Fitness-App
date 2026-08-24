@@ -143,6 +143,15 @@
     transition: background-color 220ms ease, color 220ms ease;
   }
 
+  :root[data-reduced-motion='true'] *,
+  :root[data-reduced-motion='true'] *::before,
+  :root[data-reduced-motion='true'] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
   button,
   input,
   select {
@@ -640,6 +649,17 @@
 
   .home-container {
     @apply min-h-screen px-6 py-12;
+    background-color: var(--background);
+    background-image:
+      linear-gradient(
+        115deg,
+        color-mix(in srgb, var(--background) 88%, transparent),
+        color-mix(in srgb, var(--surface) 80%, transparent)
+      ),
+      url('/gym%20background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     color: var(--text);
   }
 
@@ -648,7 +668,7 @@
   }
 
   .home-hero {
-    @apply text-center mb-10;
+    @apply mb-10 px-6 py-12 text-center sm:px-10 sm:py-16;
   }
 
   .home-title {
@@ -656,8 +676,18 @@
     color: var(--text);
   }
 
+  .home-subtitle {
+    @apply mx-auto max-w-2xl;
+    color: var(--muted-text);
+  }
+
   .home-grid {
     @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  }
+
+  .home-container .feature-card {
+    background: color-mix(in srgb, var(--surface) 90%, transparent);
+    backdrop-filter: blur(12px);
   }
 
   .navbar-shell {
@@ -666,6 +696,10 @@
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(16px);
     box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+  }
+
+  .app-shell--home > .navbar-shell {
+    background: var(--surface-raised);
   }
 
   .nav-brand {
@@ -898,17 +932,277 @@
   }
 
   .settings-page {
-    @apply min-h-screen px-4 pb-10 pt-16 sm:px-6 sm:pt-20;
+    @apply min-h-screen px-4 py-10 sm:px-6 sm:py-14;
     color: var(--text);
   }
 
-  .settings-placeholder {
+  .settings-container {
     @apply mx-auto w-full max-w-5xl;
+  }
+
+  .settings-header {
+    @apply mb-8;
+  }
+
+  .settings-header-row {
+    @apply flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between;
+  }
+
+  .settings-eyebrow {
+    @apply mb-2 text-xs font-bold uppercase tracking-widest;
+    color: var(--accent);
   }
 
   .settings-title {
     @apply text-3xl font-bold sm:text-4xl;
     color: var(--text);
+  }
+
+  .settings-description {
+    @apply mt-3 max-w-2xl;
+    color: var(--muted-text);
+  }
+
+  .settings-form {
+    @apply space-y-6;
+  }
+
+  .settings-grid {
+    @apply grid grid-cols-1 gap-6 lg:grid-cols-2;
+  }
+
+  .settings-section {
+    @apply rounded-xl p-5 sm:p-6;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .settings-section-header {
+    @apply mb-6 flex items-start justify-between gap-4;
+  }
+
+  .settings-section-title {
+    @apply text-xl font-bold;
+    color: var(--text);
+  }
+
+  .settings-section-description {
+    @apply mt-1 text-sm;
+    color: var(--muted-text);
+  }
+
+  .settings-fieldset {
+    @apply mb-6 last:mb-0;
+  }
+
+  .settings-field-group {
+    @apply mb-6;
+  }
+
+  .settings-label {
+    @apply mb-3 block text-sm font-semibold;
+    color: var(--text);
+  }
+
+  .settings-theme-grid {
+    @apply grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5;
+  }
+
+  .settings-choice-list {
+    @apply space-y-3;
+  }
+
+  .settings-choice {
+    @apply flex cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    color: var(--muted-text);
+  }
+
+  .settings-choice:hover {
+    background: var(--surface-muted);
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  .settings-choice:focus-within {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .settings-choice--selected {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .settings-choice--selected:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .settings-choice-input,
+  .settings-toggle-input {
+    @apply sr-only;
+  }
+
+  .settings-theme-choice {
+    @apply justify-start;
+  }
+
+  .settings-choice-meta {
+    @apply ml-auto rounded-full px-2 py-0.5 text-xs uppercase;
+    background: var(--surface-muted);
+    color: var(--muted-text);
+  }
+
+  .settings-choice-title,
+  .settings-choice-description {
+    @apply block;
+  }
+
+  .settings-choice-title {
+    color: var(--text);
+  }
+
+  .settings-choice-description {
+    @apply mt-1 text-xs font-normal leading-relaxed;
+    color: var(--muted-text);
+  }
+
+  .settings-format-choice {
+    @apply justify-between;
+  }
+
+  .settings-number-preview {
+    @apply ml-3 shrink-0 rounded-md px-2 py-1 font-mono text-xs;
+    background: var(--surface-muted);
+    color: var(--text);
+  }
+
+  .settings-input {
+    @apply w-full rounded-md px-4 py-2.5;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text);
+  }
+
+  .settings-input::placeholder {
+    color: var(--muted-text);
+  }
+
+  .settings-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--focus-ring);
+    outline: none;
+  }
+
+  .settings-help-text {
+    @apply mt-2 text-xs leading-relaxed;
+    color: var(--muted-text);
+  }
+
+  .settings-toggle-row {
+    @apply flex cursor-pointer items-center justify-between gap-6 rounded-lg p-4;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+  }
+
+  .settings-toggle-row:hover {
+    border-color: var(--border-strong);
+  }
+
+  .settings-toggle-title,
+  .settings-toggle-description {
+    @apply block;
+  }
+
+  .settings-toggle-title {
+    @apply text-sm font-semibold;
+    color: var(--text);
+  }
+
+  .settings-toggle-description {
+    @apply mt-1 text-xs leading-relaxed;
+    color: var(--muted-text);
+  }
+
+  .settings-toggle {
+    @apply shrink-0;
+  }
+
+  .settings-toggle-control {
+    @apply flex h-7 w-12 items-center rounded-full p-1;
+    background: var(--disabled-bg);
+  }
+
+  .settings-toggle-thumb {
+    @apply block h-5 w-5 rounded-full;
+    background: #ffffff;
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.25);
+  }
+
+  .settings-toggle-input:checked + .settings-toggle-control {
+    background: var(--accent);
+  }
+
+  .settings-toggle-input:checked + .settings-toggle-control .settings-toggle-thumb {
+    transform: translateX(1.25rem);
+  }
+
+  .settings-toggle-input:focus-visible + .settings-toggle-control {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .settings-actions {
+    @apply flex w-full flex-col items-stretch gap-3 rounded-xl p-3 sm:ml-auto sm:w-fit sm:flex-row sm:items-center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .settings-message {
+    @apply text-sm;
+    color: var(--muted-text);
+  }
+
+  .settings-message:empty {
+    @apply hidden;
+  }
+
+  .settings-message--error {
+    color: var(--danger);
+  }
+
+  .settings-message--success {
+    color: var(--success);
+  }
+
+  .settings-save-button {
+    @apply min-h-11 shrink-0 rounded-md px-6 py-2 font-bold;
+    background: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 10px 22px var(--accent-shadow);
+  }
+
+  .settings-save-button:hover:not(:disabled) {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .settings-save-button:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .settings-save-button:disabled {
+    background: var(--disabled-bg);
+    color: var(--disabled-text);
+    box-shadow: none;
+    cursor: not-allowed;
   }
 
   .account-page {

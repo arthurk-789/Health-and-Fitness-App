@@ -4,11 +4,12 @@ import EmptyState from '../components/EmptyState';
 import ErrorMessage from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SuccessMessage from '../components/SuccessMessage';
+import { formatNumber } from '../utils/preferences';
 
-function MealBuilder() {
+function MealBuilder({ preferences }) {
   const [food, setFood] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [unit, setUnit] = useState('g');
+  const [unit, setUnit] = useState(preferences.servingUnit);
   const [mealItems, setMealItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -138,22 +139,28 @@ function MealBuilder() {
         <div className='meal-totals-grid'>
           <div className='meal-total-card'>
             <p className='result-text'>Total Fat</p>
-            <p className='result-name'>{Math.round(mealTotals.fat * 10) / 10} g</p>
+            <p className='result-name'>{formatNumber(mealTotals.fat, preferences.numberFormat)} g</p>
           </div>
 
           <div className='meal-total-card'>
             <p className='result-text'>Total Carbohydrates</p>
-            <p className='result-name'>{Math.round(mealTotals.carbohydrates * 10) / 10} g</p>
+            <p className='result-name'>
+              {formatNumber(mealTotals.carbohydrates, preferences.numberFormat)} g
+            </p>
           </div>
 
           <div className='meal-total-card'>
             <p className='result-text'>Total Sodium</p>
-            <p className='result-name'>{Math.round(mealTotals.sodium)} mg</p>
+            <p className='result-name'>
+              {formatNumber(mealTotals.sodium, preferences.numberFormat)} mg
+            </p>
           </div>
 
           <div className='meal-total-card'>
             <p className='result-text'>Total Potassium</p>
-            <p className='result-name'>{Math.round(mealTotals.potassium)} mg</p>
+            <p className='result-name'>
+              {formatNumber(mealTotals.potassium, preferences.numberFormat)} mg
+            </p>
           </div>
         </div>
       </div>
@@ -176,23 +183,23 @@ function MealBuilder() {
               </h2>
 
               <p className='result-text'>
-                Serving Size: {item.serving_size_g || 0} g
+                Serving Size: {formatNumber(item.serving_size_g || 0, preferences.numberFormat)} g
               </p>
 
               <p className='result-text'>
-                Fat: {item.fat_total_g || 0} g
+                Fat: {formatNumber(item.fat_total_g || 0, preferences.numberFormat)} g
               </p>
 
               <p className='result-text'>
-                Carbohydrates: {item.carbohydrates_total_g || 0} g
+                Carbohydrates: {formatNumber(item.carbohydrates_total_g || 0, preferences.numberFormat)} g
               </p>
 
               <p className='result-text'>
-                Sodium: {item.sodium_mg || 0} mg
+                Sodium: {formatNumber(item.sodium_mg || 0, preferences.numberFormat)} mg
               </p>
 
               <p className='result-text'>
-                Potassium: {item.potassium_mg || 0} mg
+                Potassium: {formatNumber(item.potassium_mg || 0, preferences.numberFormat)} mg
               </p>
 
               <button

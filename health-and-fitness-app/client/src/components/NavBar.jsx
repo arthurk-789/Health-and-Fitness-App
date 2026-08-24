@@ -1,13 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
-const themeOptions = [
-  { value: 'light', label: 'Light' },
-  { value: 'dark', label: 'Dark' },
-  { value: 'emerald', label: 'Emerald' },
-  { value: 'sunset', label: 'Sunset' },
-  { value: 'violet', label: 'Violet' },
-];
+import { THEME_OPTIONS } from '../utils/preferences';
 
 function Navbar({ theme, onThemeChange }) {
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
@@ -22,7 +15,7 @@ function Navbar({ theme, onThemeChange }) {
   const profileBaseLink = 'profile-link';
   const activeProfileLink = 'profile-link--active';
   const inactiveProfileLink = 'profile-link--inactive';
-  const selectedTheme = themeOptions.find((option) => option.value === theme);
+  const selectedTheme = THEME_OPTIONS.find((option) => option.value === theme);
 
   useEffect(() => {
     if (!isThemeMenuOpen) {
@@ -169,7 +162,7 @@ function Navbar({ theme, onThemeChange }) {
             {isThemeMenuOpen && (
               <div className='theme-options' id='theme-options' role='menu'>
                 <span className='theme-options-label'>Choose a theme</span>
-                {themeOptions.map((option) => {
+                {THEME_OPTIONS.map((option) => {
                   const isActive = option.value === theme;
 
                   return (

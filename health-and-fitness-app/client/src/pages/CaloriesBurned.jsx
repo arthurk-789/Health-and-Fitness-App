@@ -2,10 +2,11 @@ import { useState } from 'react';
 import EmptyState from '../components/EmptyState';
 import ErrorMessage from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { formatNumber } from '../utils/preferences';
 
-function CaloriesBurned() {
+function CaloriesBurned({ preferences }) {
   const [activity, setActivity] = useState('');
-  const [weight, setWeight] = useState('');
+  const [weight, setWeight] = useState(preferences.weight);
   const [duration, setDuration] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -158,7 +159,7 @@ function CaloriesBurned() {
                 {result.total_calories !== undefined && (
                   <div className='calories-total'>
                     <span className='calories-total-value'>
-                      {result.total_calories}
+                      {formatNumber(result.total_calories, preferences.numberFormat)}
                     </span>
                     <span className='calories-total-label'>
                       total calories burned
@@ -171,7 +172,7 @@ function CaloriesBurned() {
                     <div className='calories-stat'>
                       <span className='stat-label'>Per hour</span>
                       <span className='calories-stat-value'>
-                        {result.calories_per_hour} cal
+                        {formatNumber(result.calories_per_hour, preferences.numberFormat)} cal
                       </span>
                     </div>
                   )}
@@ -180,7 +181,7 @@ function CaloriesBurned() {
                     <div className='calories-stat'>
                       <span className='stat-label'>Duration</span>
                       <span className='calories-stat-value'>
-                        {result.duration_minutes} min
+                        {formatNumber(result.duration_minutes, preferences.numberFormat)} min
                       </span>
                     </div>
                   )}

@@ -7,7 +7,7 @@ function Home() {
 
                 <div className='home-hero'>
                     <h1 className='home-title'>
-                        Health & Fitness Dashboard
+                        Your Personal Health & Fitness Dashboard
                     </h1>
 
                     <p className='home-subtitle'>

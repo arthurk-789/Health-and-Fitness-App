@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { formatNumber } from '../utils/preferences';
 
-function MacroCalculator() {
+function MacroCalculator({ preferences }) {
     const [userData, setUserData] = useState({
         age: '',
-        weight: '',
+        weight: preferences.weight,
         heightFeet: '',
         heightInches: '',
         gender: 'male',
@@ -77,10 +78,10 @@ function MacroCalculator() {
         const carbs = (calories - protein * 4 - fat * 9) / 4;
 
         setResults({
-            calories: Math.round(calories),
-            protein: Math.round(protein),
-            carbs: Math.round(carbs),
-            fat: Math.round(fat)
+            calories,
+            protein,
+            carbs,
+            fat
         });
     };
 
@@ -220,19 +221,27 @@ function MacroCalculator() {
                         <div className='results-grid'>
                             <div className='stats-card'>
                                 <p className='stats-label'>Calories</p>
-                                <p className='stats-value'>{results.calories}</p>
+                                <p className='stats-value'>
+                                    {formatNumber(results.calories, preferences.numberFormat)}
+                                </p>
                             </div>
                             <div className='stats-card'>
                                 <p className='stats-label'>Protein (g)</p>
-                                <p className='stats-value'>{results.protein}</p>
+                                <p className='stats-value'>
+                                    {formatNumber(results.protein, preferences.numberFormat)}
+                                </p>
                             </div>
                             <div className='stats-card'>
                                 <p className='stats-label'>Carbs (g)</p>
-                                <p className='stats-value'>{results.carbs}</p>
+                                <p className='stats-value'>
+                                    {formatNumber(results.carbs, preferences.numberFormat)}
+                                </p>
                             </div>
                             <div className='stats-card'>
                                 <p className='stats-label'>Fat (g)</p>
-                                <p className='stats-value'>{results.fat}</p>
+                                <p className='stats-value'>
+                                    {formatNumber(results.fat, preferences.numberFormat)}
+                                </p>
                             </div>
                         </div>
                     )}

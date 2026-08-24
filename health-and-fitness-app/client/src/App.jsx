@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import NavBar from './components/NavBar';
 import NutritionLookup from './pages/NutritionLookup';
@@ -8,32 +8,39 @@ import MealBuilder from './pages/MealBuilder';
 import Account from './pages/Account';
 import CaloriesBurned from './pages/CaloriesBurned';
 import Settings from './pages/Settings';
-
-const themes = ['light', 'dark', 'emerald', 'sunset', 'violet'];
+import { loadPreferences, savePreferences } from './utils/preferences';
 
 function App() {
-  const [theme, setTheme] = useState(() => {
-    const storedTheme = localStorage.getItem('theme');
-
-    return themes.includes(storedTheme) ? storedTheme : 'dark';
-  });
+  const location = useLocation();
+  const [preferences, setPreferences] = useState(loadPreferences);
 
   useLayoutEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    document.documentElement.dataset.theme = preferences.theme;
+    document.documentElement.dataset.reducedMotion = String(preferences.reduceMotion);
+    savePreferences(preferences);
+  }, [preferences]);
+
+  function handleThemeChange(theme) {
+    setPreferences((currentPreferences) => ({
+      ...currentPreferences,
+      theme,
+    }));
+  }
 
   return (
-    <div className='app-shell'>
-      <NavBar theme={theme} onThemeChange={setTheme} />
+    <div className={`app-shell ${location.pathname === '/' ? 'app-shell--home' : ''}`}>
+      <NavBar theme={preferences.theme} onThemeChange={handleThemeChange} />
 
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/nutrition' element={<NutritionLookup />} />
-        <Route path='/macros' element={<MacroCalculator />} />
-        <Route path='/meal-builder' element={<MealBuilder />} />
-        <Route path='/calories-burned' element={<CaloriesBurned />} />
-        <Route path='/settings' element={<Settings />} />
+        <Route path='/nutrition' element={<NutritionLookup preferences={preferences} />} />
+        <Route path='/macros' element={<MacroCalculator preferences={preferences} />} />
+        <Route path='/meal-builder' element={<MealBuilder preferences={preferences} />} />
+        <Route path='/calories-burned' element={<CaloriesBurned preferences={preferences} />} />
+        <Route
+          path='/settings'
+          element={<Settings preferences={preferences} onSave={setPreferences} />}
+        />
         <Route path='/account' element={<Account />} />
       </Routes>
     </div>

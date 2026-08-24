@@ -2,11 +2,12 @@ import { useState } from 'react';
 import EmptyState from '../components/EmptyState';
 import ErrorMessage from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { formatNumber } from '../utils/preferences';
 
-function NutritionLookup() {
+function NutritionLookup({ preferences }) {
   const [food, setFood] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [unit, setUnit] = useState('g');
+  const [unit, setUnit] = useState(preferences.servingUnit);
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -149,29 +150,37 @@ function NutritionLookup() {
               </h2>
 
               <p className='result-serving-size'>
-                Serving Size: {results.serving_size_g} g
+                Serving Size: {formatNumber(results.serving_size_g, preferences.numberFormat)} g
               </p>
             </div>
 
             <div className='result-stats-grid'>
               <div className='stat-tile'>
                 <span className='stat-label'>Fat</span>
-                <span className='stat-value'>{results.fat_total_g} g</span>
+                <span className='stat-value'>
+                  {formatNumber(results.fat_total_g, preferences.numberFormat)} g
+                </span>
               </div>
 
               <div className='stat-tile'>
                 <span className='stat-label'>Carbohydrates</span>
-                <span className='stat-value'>{results.carbohydrates_total_g} g</span>
+                <span className='stat-value'>
+                  {formatNumber(results.carbohydrates_total_g, preferences.numberFormat)} g
+                </span>
               </div>
 
               <div className='stat-tile'>
                 <span className='stat-label'>Sodium</span>
-                <span className='stat-value'>{results.sodium_mg} mg</span>
+                <span className='stat-value'>
+                  {formatNumber(results.sodium_mg, preferences.numberFormat)} mg
+                </span>
               </div>
 
               <div className='stat-tile'>
                 <span className='stat-label'>Potassium</span>
-                <span className='stat-value'>{results.potassium_mg} mg</span>
+                <span className='stat-value'>
+                  {formatNumber(results.potassium_mg, preferences.numberFormat)} mg
+                </span>
               </div>
             </div>
 
@@ -179,7 +188,9 @@ function NutritionLookup() {
               <p className='additional-nutrition-title'>Additional Nutrition</p>
               <div className='stat-tile additional-nutrition-card'>
                 <span className='stat-label'>Cholesterol</span>
-                <span className='stat-value'>{results.cholesterol_mg} mg</span>
+                <span className='stat-value'>
+                  {formatNumber(results.cholesterol_mg, preferences.numberFormat)} mg
+                </span>
               </div>
             </div>
 
